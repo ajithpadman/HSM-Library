@@ -210,7 +210,14 @@ void hsm_doTransition(unsigned int transitionID,state *currentState)
 		//execute state transition action
 		hsm_currentState = hsm_nextState;//do the state transition to next state
 		hsm_nextState = STATEID_NULL;//change the next State  to NULL 
-		//printf(" hsm_currentState  = %d\n  ",hsm_currentState->stateID);
+		//Call the DO action of the state
+		if(NULL != hsm_currentState )
+		{
+			if(NULL != hsm_currentState->doAction)
+			{
+				hsm_currentState->doAction(0);
+			}
+		}
 		hsm_ProcessEvent(EV_DEFAULT);
 	}
 	

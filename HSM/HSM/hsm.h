@@ -104,6 +104,7 @@ typedef struct State
 	TransitionTable *smTransition;//pointer to the list of transitions from the state
 	void (*entryAction)(int SMinstanceID);
 	void (*exitAction)(int SMinstanceID);
+	void (*doAction)(int SMinstanceID);
 	struct State *parentState;
 }state;
 /*! \var hsm_stateList

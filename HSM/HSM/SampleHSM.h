@@ -47,6 +47,8 @@ STATE_1
 ************************************/
 //entry function for STATE_1
 void State1_Entry(int id);
+//Do function for STATE_1
+void State1_Do(int id);
 //exit function for STATE_1
 void State1_Exit(int id);
 //Transition Table for STATE_1
@@ -73,6 +75,8 @@ STATE1_2
 ************************************/
 //entry function for STATE1_2
 void State1_2_entry(int id);
+//Do function for STATE1_2
+void State1_2_Do(int id);
 //exit function for STATE1_2
 void State1_2_exit(int id);
 //condition for transition from STATE1_2 to STATE1_1
@@ -135,6 +139,8 @@ State4
 ************************************/
 //entry function for State4
 void State4Entry(int id);
+//Do function for State4
+void State4_Do(int id);
 //exit function for State4
 void State4Exit(int id);
 /************************************
@@ -169,15 +175,15 @@ State Table
 static state m_stateList_SampleHSM[MAX_STATEID]=
 {
 {0,0,0,0,0,0},//STATEID_NULL
-{ROOT_STATE,STATEID_NULL,&transitionTable_SampleHSM[ROOT_STATE],0,0,0},//ROOT_STATE
-{STATE_1,ROOT_STATE,&transitionTable_SampleHSM[STATE_1],State1_Entry,State1_Exit,0},//STATE_1
-{STATE1_1,STATE_1,&transitionTable_SampleHSM[STATE1_1],State1_1_entry,State1_1_Exit,0},//STATE1_1
-{STATE1_2,STATE_1,&transitionTable_SampleHSM[STATE1_2],State1_2_entry,State1_2_exit,0},//STATE1_2
-{STATE_2,ROOT_STATE,&transitionTable_SampleHSM[STATE_2],State2_entry,State2_exit,0},//STATE_2
-{STATE2_1,STATE_2,&transitionTable_SampleHSM[STATE2_1],State2_1Entry,State2_1Exit,0},//STATE2_1
-{STATE2_1_1,STATE2_1,&transitionTable_SampleHSM[STATE2_1_1],State2_1_1_Entry,State2_1_1_Exit,0},//STATE2_1_1
-{STATE_3,ROOT_STATE,&transitionTable_SampleHSM[STATE_3],State3_Entry,State3_Exit,0},//STATE_3
-{State4,ROOT_STATE,&transitionTable_SampleHSM[State4],State4Entry,State4Exit,0}//State4
+{ROOT_STATE,STATEID_NULL,&transitionTable_SampleHSM[ROOT_STATE],0,0,0,0},//ROOT_STATE
+{STATE_1,ROOT_STATE,&transitionTable_SampleHSM[STATE_1],State1_Entry,State1_Exit,State1_Do,0},//STATE_1
+{STATE1_1,STATE_1,&transitionTable_SampleHSM[STATE1_1],State1_1_entry,State1_1_Exit,0,0},//STATE1_1
+{STATE1_2,STATE_1,&transitionTable_SampleHSM[STATE1_2],State1_2_entry,State1_2_exit,State1_2_Do,0},//STATE1_2
+{STATE_2,ROOT_STATE,&transitionTable_SampleHSM[STATE_2],State2_entry,State2_exit,0,0},//STATE_2
+{STATE2_1,STATE_2,&transitionTable_SampleHSM[STATE2_1],State2_1Entry,State2_1Exit,0,0},//STATE2_1
+{STATE2_1_1,STATE2_1,&transitionTable_SampleHSM[STATE2_1_1],State2_1_1_Entry,State2_1_1_Exit,0,0},//STATE2_1_1
+{STATE_3,ROOT_STATE,&transitionTable_SampleHSM[STATE_3],State3_Entry,State3_Exit,0,0},//STATE_3
+{State4,ROOT_STATE,&transitionTable_SampleHSM[State4],State4Entry,State4Exit,State4_Do,0}//State4
 };
 #endif
 

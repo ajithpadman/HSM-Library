@@ -67,6 +67,17 @@ void State1_Entry(int id)
 }
 /************************************/
 /*!
+   \fn void State1_Do(int id)
+*  \brief //Do function for STATE_1
+*  \return void
+*/
+/************************************/
+void State1_Do(int id)
+{
+ (void)id;
+}
+/************************************/
+/*!
    \fn void State1_Entry(int id)
 *  \brief //exit function for STATE_1
 *  \return void
@@ -117,6 +128,17 @@ int contoState211(int id)
 */
 /************************************/
 void State1_2_entry(int id)
+{
+ (void)id;
+}
+/************************************/
+/*!
+   \fn void State1_2_Do(int id)
+*  \brief //Do function for STATE1_2
+*  \return void
+*/
+/************************************/
+void State1_2_Do(int id)
 {
  (void)id;
 }
@@ -262,6 +284,19 @@ void State3_Exit(int id)
 void State4Entry(int id)
 {
  (void)id;
+  printf("State4Entry\n");
+}
+/************************************/
+/*!
+   \fn void State4_Do(int id)
+*  \brief //Do function for State4
+*  \return void
+*/
+/************************************/
+void State4_Do(int id)
+{
+ (void)id;
+ printf("State4_Do\n");
 }
 /************************************/
 /*!
