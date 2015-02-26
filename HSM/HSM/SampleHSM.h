@@ -1,6 +1,7 @@
 #ifndef SAMPLEHSM
 #define SAMPLEHSM
 #include "hsm.h"
+
 enum EventIDList_SampleHSM
 {
   EV2 = EV_BASE_MAX,

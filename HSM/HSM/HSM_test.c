@@ -8,6 +8,7 @@
 #include <ws2tcpip.h>
 #include <iphlpapi.h>
 #include <windows.h>
+#include "stdio.h"
 #define BUF_SIZE 255
 #define DEFAULT_BUFLEN 512
 #pragma comment(lib,"ws2_32.lib") //Winsock Library

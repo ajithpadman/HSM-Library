@@ -12,7 +12,7 @@ int Stack_Top(Stack *stack)
 {
 	int data = 0;
     if (stack->size <= 0) {
-#ifdef _WIN32
+#ifdef SYSTEM_SIMULATION
         fprintf(stderr, "Error: stack empty\n");
 #endif
         return -1;
@@ -28,7 +28,7 @@ void Stack_Push(Stack *stack, unsigned int value)
 		stack->data[stack->size++] = value;
 	else
 	{
-#ifdef _WIN32
+#ifdef SYSTEM_SIMULATION
 		fprintf(stderr, "Error: stack full\n");
 #endif
     }
@@ -38,7 +38,7 @@ void Stack_Pop(Stack *stack)
 {
     if (stack->size <= 0)
 	{
-#ifdef _WIN32
+#ifdef SYSTEM_SIMULATION
         fprintf(stderr, "Error: stack empty\n");
 #endif
     }

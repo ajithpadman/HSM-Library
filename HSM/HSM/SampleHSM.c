@@ -1,4 +1,5 @@
 #include "SampleHSM.h"
+#include "stdio.h"
 /************************************/
 /*!
    \fn void SampleHSM_HSM_Create(void)

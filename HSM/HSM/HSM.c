@@ -6,13 +6,30 @@
 * \date      29.09.2014
 *  
 */
+
 #include "hsm.h"
-#ifdef _WIN32
+#ifdef SYSTEM_SIMULATION
 #include <conio.h>
 #endif
 #ifndef NULL
 #define NULL 0
 #endif
+/*! \var hsm_stateList
+ * The main statelist provided by the user
+ */
+state *hsm_stateList;//pointer to an array of States
+/*! \var hsm_currentState
+ * Global variable used to store the current state information
+ */
+state *hsm_currentState;
+/*! \var hsm_nextState
+ * Global variable used to store the current destination state during a state transition
+ */
+state *hsm_nextState;
+/*! \var hsm_EntryRoute
+ * stack used to trace back the state entry path
+ */
+Stack hsm_EntryRoute;
 
 void hsm_ProcessEvent(EventID eventId);
 unsigned int hsm_isEventConsumed(state *currentState, EventID eventId,unsigned int *transitionIndex);
@@ -110,7 +127,7 @@ void hsm_ProcessEvent(EventID eventId)
 		result = hsm_isEventConsumed(currentState,eventId,&transitionID) ;//checking if the event is consumed by the state
 		if(HSM_RESULT_OK == result)
 		{
-#ifdef _WIN32
+#ifdef SYSTEM_SIMULATION
 			printf(" Event consumed %d\n",eventId);
 #endif
 		}
@@ -163,7 +180,7 @@ unsigned int hsm_isEventConsumed(state *currentState, EventID eventId,unsigned i
 		{
 			if(currentState->smTransition->transition[transitionID].condition != 0)//execute the transition condition to know if the conditions are correct.
 			{
-				if(currentState->smTransition->transition[transitionID].condition(0)== HSM_RESULT_OK)
+				if(currentState->smTransition->transition[transitionID].condition()== HSM_RESULT_OK)
 				{
 					*transitionIndex = transitionID;//return the current transition Identifier to event processor
 					result = HSM_RESULT_OK;
@@ -201,7 +218,7 @@ void hsm_doTransition(unsigned int transitionID,state *currentState)
 		{
 			if(NULL != currentState->smTransition->transition[transitionID].action)
 			{
-			   currentState->smTransition->transition[transitionID].action(0);//assuming only one action is there during transition
+			   currentState->smTransition->transition[transitionID].action();//assuming only one action is there during transition
 			}
 		}
 		//call the entry hierarchically
@@ -215,7 +232,7 @@ void hsm_doTransition(unsigned int transitionID,state *currentState)
 		{
 			if(NULL != hsm_currentState->doAction)
 			{
-				hsm_currentState->doAction(0);
+				hsm_currentState->doAction();
 			}
 		}
 		hsm_ProcessEvent(EV_DEFAULT);
@@ -240,14 +257,14 @@ void executeEntry(void)
 		{
 			if(hsm_stateList[stateID].entryAction)
 			{
-				hsm_stateList[stateID].entryAction(0);//executing the entry action
+				hsm_stateList[stateID].entryAction();//executing the entry action
 			}
 		}
 		
 	}
 	if(NULL != hsm_nextState->entryAction)
 	{
-		hsm_nextState->entryAction(0);
+		hsm_nextState->entryAction();
 	}
 }
 /*! \fn void executeExit(void) 
@@ -268,7 +285,7 @@ void executeExit()
 	{
 		if(NULL != currentState.exitAction)
 		{
-			currentState.exitAction(0);
+			currentState.exitAction();
 		}
 		currentState = *currentState.parentState;
 		//nextState = *nextState.parentState;
@@ -324,7 +341,7 @@ void prepareEntryTable(state commonParent)
 */
 StateID hsm_getCurrentState(void)
 {
-	#ifdef _WIN32 
+	#ifdef SYSTEM_SIMULATION 
   printf("current State from getCurrentState %d\n",hsm_currentState->stateID);
   #endif
 	return hsm_currentState->stateID;

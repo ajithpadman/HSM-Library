@@ -8,7 +8,7 @@
 */
 #ifndef HSM
 #define HSM
-#ifdef _WIN32
+#ifdef SYSTEM_SIMULATION
 #include <stdio.h>
 #endif
 #include "stack.h"
@@ -80,8 +80,8 @@ typedef  unsigned int StateID;
 typedef struct Transition
 {
 	EventID triggerID;//Event creating  the transition
-	int (*condition)(int SMinstanceID);//condition for the transition
-	void (*action)(int SMinstanceID);//Transition action
+	int (*condition)();//condition for the transition
+	void (*action)();//Transition action
 	StateID fromState;//Source StateID
 	StateID toState;//Destination StateID
 
@@ -102,27 +102,27 @@ typedef struct State
 	StateID stateID;//ID of the current State
 	StateID parentID;//ID of the Parent
 	TransitionTable *smTransition;//pointer to the list of transitions from the state
-	void (*entryAction)(int SMinstanceID);
-	void (*exitAction)(int SMinstanceID);
-	void (*doAction)(int SMinstanceID);
+	void (*entryAction)();
+	void (*exitAction)();
+	void (*doAction)();
 	struct State *parentState;
 }state;
 /*! \var hsm_stateList
  * The main statelist provided by the user
  */
-state *hsm_stateList;//pointer to an array of States
+extern state *hsm_stateList;//pointer to an array of States
 /*! \var hsm_currentState
  * Global variable used to store the current state information
  */
-state *hsm_currentState;
+extern state *hsm_currentState;
 /*! \var hsm_nextState
  * Global variable used to store the current destination state during a state transition
  */
-state *hsm_nextState;
+extern state *hsm_nextState;
 /*! \var hsm_EntryRoute
  * stack used to trace back the state entry path
  */
-Stack hsm_EntryRoute;
+extern Stack hsm_EntryRoute;
 
 /***
 *HSM Functions 
